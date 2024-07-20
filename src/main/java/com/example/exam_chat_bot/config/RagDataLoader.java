@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
+import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -19,10 +20,14 @@ import java.util.List;
 @Component
 @Configuration
 public class RagDataLoader {
-    @Value("classpath:/files/BrochureIGA.pdf")
+    @Value("classpath:/files/cv.pdf")
     private Resource pdfResource;
-    @Value("store-data-v1.json")
+    @Value("store-data-v2.json")
     private String storeFile;
+    
+    private EmbeddingModel embeddingModel;
+
+    private JdbcClient jdbcClient;
 
     @Bean
     public SimpleVectorStore simpleVectorStore(EmbeddingModel embeddingModel){
@@ -43,4 +48,5 @@ public class RagDataLoader {
         }
         return vectorStore;
     }
+    
 }
